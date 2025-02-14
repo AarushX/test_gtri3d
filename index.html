@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GT FRC Robot in 3 Days</title>
+  <style>
+    /* Root variables for a vibrant, modern color palette */
+    :root {
+      --primary: #b3a369;      /* Georgia Tech Gold (adapted) */
+      --secondary: #000000;    /* Black */
+      --accent: #e54d42;       /* Vibrant accent red */
+      --background: #f5f5f5;   /* Light background */
+      --text: #222222;         /* Default text color */
+    }
+    
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    
+    /* Navigation */
+    nav {
+      background: #fff;
+      padding: 1em;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    nav a {
+      margin: 0 1em;
+      text-decoration: none;
+      color: var(--secondary);
+      font-weight: bold;
+      position: relative;
+      transition: color 0.3s;
+    }
+    
+    nav a:hover {
+      color: var(--accent);
+    }
+    
+    nav a::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 3px;
+      background: var(--accent);
+      transition: width 0.3s;
+      margin: auto;
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+    }
+    
+    /* Header Section */
+    header {
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      padding: 2em 1em;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5em;
+      color: #fff;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+    
+    header p {
+      color: #fff;
+      font-size: 1.2rem;
+      opacity: 0;
+      animation: fadeIn 1s 0.5s forwards;
+    }
+    
+    /* Sections */
+    section {
+      padding: 4em 2em;
+      min-height: 80vh;
+      background: var(--background);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideIn 1s forwards;
+    }
+    
+    section:nth-of-type(even) {
+      background: #ffffff;
+    }
+    
+    section h2 {
+      text-align: center;
+      color: var(--secondary);
+      margin-bottom: 1em;
+      font-size: 2rem;
+    }
+    
+    section p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+    
+    .button {
+      background: var(--accent);
+      border: none;
+      padding: 0.75em 1.5em;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #fff;
+      transition: background 0.3s;
+      outline: none;
+      display: block;
+      margin: 2em auto 0;
+    }
+    
+    .button:hover {
+      background: #c44139;
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--secondary);
+      color: #fff;
+      text-align: center;
+      padding: 2em;
+    }
+    
+    footer p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    
+    @keyframes slideIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.5rem;
+      }
+      section {
+        padding: 3em 1em;
+      }
+      nav a {
+        margin: 0.5em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav>
+    <a href="#about">About</a>
+    <a href="#team">Team</a>
+    <a href="#robot">Robot</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  
+  <!-- Header with animated text -->
+  <header>
+    <h1>FRC Robot in 3 Days</h1>
+    <p>Georgia Tech presents a revolution in rapid robotics innovation.</p>
+  </header>
+  
+  <!-- About Section -->
+  <section id="about">
+    <h2>About the Team</h2>
+    <p>
+      We are Georgia Tech’s premier team dedicated to the FRC FIRST robotics challenge. In just three days, we conceptualize, design, and build a robot that pushes the boundaries of modern engineering. With passion for innovation and a drive for excellence, our mission is to inspire and empower the next generation of STEM leaders.
+    </p>
+  </section>
+  
+  <!-- Team Section -->
+  <section id="team">
+    <h2>Our Team</h2>
+    <p>
+      Our collective of visionary engineers, creative designers, and tenacious leaders come together with a unified drive. Each member contributes unique skills to solve complex challenges, innovate relentlessly, and craft a robot that stands as a beacon of collaborative spirit and modern technology.
+    </p>
+  </section>
+  
+  <!-- Robot Section -->
+  <section id="robot">
+    <h2>The Robot</h2>
+    <p>
+      The robot is a masterpiece of rapid design and engineering. Merging cutting‐edge technology with functional design, each component is crafted to perfection. This machine showcases our team’s expertise, adaptability, and determination under pressure – a true symbol of our competitive spirit.
+    </p>
+    <button class="button">Learn More</button>
+  </section>
+  
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Get in Touch</h2>
+    <p>
+      Curious about our project or eager to dive into the world of robotics? Connect with us! Email us at <strong>contact@gtfrc3days.com</strong> or follow us on our social media channels for the latest updates, behind‐the-scenes insights, and opportunities to collaborate.
+    </p>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Georgia Tech FRC Robot in 3 Days. All Rights Reserved.</p>
+  </footer>
+  
+  <!-- JavaScript for Smooth Scrolling and Section Reveal -->
+  <script>
+    // Smooth scroll for internal navigation
+    document.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', event => {
+        event.preventDefault();
+        document.querySelector(anchor.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Use Intersection Observer for triggering a quick reveal animation on sections as they scroll into view
+    const sections = document.querySelectorAll('section');
+    const options = {
+      threshold: 0.2
+    };
+    
+    const observer = new IntersectionObserver((entries, observerRef) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          observerRef.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>
