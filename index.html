@@ -1,639 +1,469 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Georgia Tech Robot | 3 Days Focus</title>
-  <style>
-    /* =============================================================================
-       RESET & BASE STYLES
-    ============================================================================= */
-    *,
-    *::before,
-    *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-  
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
-  
-    body {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background-color: #111; /* deep black */
-      color: #eee;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-  
-    a {
-      text-decoration: none;
-      color: inherit;
-      transition: color 0.3s ease;
-    }
-  
-    a:hover {
-      color: #ff6600; /* bright orange accent */
-    }
-  
-    /* =============================================================================
-       LAYERED BACKGROUNDS & GEOMETRIC DECORATIONS
-    ============================================================================= */
-    .geometric {
-      position: absolute;
-      z-index: 1;
-      opacity: 0.15;
-      fill: #ff6600;
-    }
-  
-    .geo-plus {
-      top: 10%;
-      left: 5%;
-      transform: rotate(15deg);
-      width: 80px;
-      height: 80px;
-    }
-  
-    .geo-cross {
-      bottom: 15%;
-      right: 10%;
-      transform: rotate(45deg);
-      width: 100px;
-      height: 100px;
-    }
-  
-    /* =============================================================================
-       NAVIGATION
-    ============================================================================= */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      padding: 1rem 2rem;
-      z-index: 100;
-      display: flex;
-      justify-content: center;
-    }
-  
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2rem;
-    }
-  
-    nav ul li {
-      position: relative;
-    }
-  
-    nav ul li a {
-      color: #fff;
-      font-weight: bold;
-      letter-spacing: 0.025em;
-      font-size: 1rem;
-      padding: 0.5rem;
-    }
-  
-    nav ul li a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      background: #ff6600;
-      left: 50%;
-      bottom: 0;
-      transition: width 0.3s ease, left 0.3s ease;
-    }
-  
-    nav ul li a:hover::after {
-      width: 100%;
-      left: 0;
-    }
-  
-    /* =============================================================================
-       HERO SECTION
-    ============================================================================= */
-    header.hero {
-      position: relative;
-      height: 100vh;
-      background: linear-gradient(135deg, #222, #111);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-    }
-  
-    header.hero .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('') no-repeat center center/cover;
-      /* In production, replace the empty URL with a full-screen modern interior image */
-      opacity: 0.3;
-    }
-  
-    header.hero .content {
-      position: relative;
-      z-index: 10;
-    }
-  
-    header.hero h1 {
-      font-size: 4rem;
-      letter-spacing: 0.05em;
-      margin-bottom: 1rem;
-      animation: fadeInDown 1s ease-out forwards;
-      opacity: 0;
-    }
-  
-    header.hero p {
-      font-size: 1.5rem;
-      margin-bottom: 2rem;
-      animation: fadeInUp 1s ease-out forwards;
-      animation-delay: 0.5s;
-      opacity: 0;
-    }
-  
-    /* =============================================================================
-       GEORGIA TECH ROBOT SECTION
-    ============================================================================= */
-    section.robot {
-      position: relative;
-      padding: 6rem 2rem;
-      background: #1a1a1a;
-      overflow: hidden;
-    }
-  
-    section.robot h2 {
-      text-align: center;
-      margin-bottom: 2rem;
-      font-size: 2.5rem;
-      color: #ff6600;
-    }
-  
-    section.robot .robot-container {
-      max-width: 900px;
-      margin: 0 auto;
-      position: relative;
-    }
-  
-    /* Placeholder representing the legacy robot asset via inline SVG */
-    section.robot .robot-container svg {
-      width: 100%;
-      height: auto;
-      display: block;
-      margin: 0 auto;
-      filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.8));
-    }
-  
-    /* =============================================================================
-       THREE DAYS FOCUS SECTION
-    ============================================================================= */
-    section.days-focus {
-      position: relative;
-      padding: 6rem 2rem;
-      background: #222;
-      overflow: hidden;
-    }
-  
-    section.days-focus h2 {
-      text-align: center;
-      margin-bottom: 2rem;
-      font-size: 2.5rem;
-      color: #ff6600;
-    }
-  
-    .timeline {
-      max-width: 1000px;
-      margin: 0 auto;
-      position: relative;
-    }
-  
-    .timeline .day {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 3rem;
-      position: relative;
-    }
-  
-    .timeline .day::before {
-      content: '';
-      position: absolute;
-      top: -20px;
-      width: 6px;
-      height: calc(100% + 40px);
-      background: #ff6600;
-      z-index: -1;
-      border-radius: 3px;
-    }
-  
-    .timeline .day:first-child::before {
-      top: 50%;
-      height: 50%;
-    }
-  
-    .timeline .day:last-child::before {
-      height: 50%;
-    }
-  
-    .timeline .day .day-title {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      color: #fff;
-    }
-  
-    .timeline .day .day-desc {
-      max-width: 700px;
-      text-align: center;
-      font-size: 1rem;
-      line-height: 1.5;
-    }
-  
-    .cta-button {
-      display: inline-block;
-      margin-top: 2rem;
-      padding: 1rem 2rem;
-      background: #ff6600;
-      color: #fff;
-      font-size: 1rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-  
-    .cta-button:hover {
-      background: #e05500;
-    }
-  
-    /* =============================================================================
-       ABOUT, SERVICES, TEAM, CONTACT
-    ============================================================================= */
-    section.generic {
-      padding: 6rem 2rem;
-      background: #111;
-      text-align: center;
-    }
-  
-    section.generic:nth-of-type(even) {
-      background: #1a1a1a;
-    }
-  
-    section.generic h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-      color: #ff6600;
-    }
-  
-    section.generic p {
-      max-width: 800px;
-      margin: 0 auto;
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: #ccc;
-    }
-  
-    /* =============================================================================
-       FOOTER
-    ============================================================================= */
-    footer {
-      padding: 3rem 2rem;
-      background: #000;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #777;
-    }
-  
-    /* =============================================================================
-       ANIMATIONS
-    ============================================================================= */
-    @keyframes fadeInDown {
-      0% {
-        opacity: 0;
-        transform: translateY(-50px);
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FRC Robotics | Empowering Tomorrow's Engineers</title>
+    <!-- Google Font: Inter -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Global Styles */
+      * {
+        box-sizing: border-box;
       }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Inter", sans-serif;
+        background-color: #f8f8f8;
+        color: #333;
       }
-    }
-  
-    @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(50px);
+      a {
+        text-decoration: none;
       }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
+      
+      /* Navigation */
+      header {
+        background: #333;
+        color: #fff;
+        padding: 1rem 0;
       }
-    }
-  
-    /* =============================================================================
-       RESPONSIVE DESIGN
-    ============================================================================= */
-    @media (max-width: 768px) {
-      header.hero h1 {
-        font-size: 3rem;
+      header .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
-      header.hero p {
-        font-size: 1.25rem;
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
       }
-  
-      nav ul {
+      .nav-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+      .nav-links li {
+        margin-left: 1.5rem;
+      }
+      .nav-links a {
+        color: #fff;
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+      .nav-links a:hover {
+        color: #ff5733;
+      }
+      
+      /* Hero Section */
+      .hero {
+        display: flex;
+        min-height: 80vh;
+        overflow: hidden;
+      }
+      .hero-left,
+      .hero-right {
+        flex: 1;
+        position: relative;
+      }
+      .hero-left {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        /* Gradient overlay: dark purple fading to transparent */
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.75), transparent);
+        color: #fff;
+      }
+      .hero-left .overlay {
+        max-width: 500px;
+      }
+      .hero-left .icon {
+        margin-bottom: 1rem;
+      }
+      /* Minimalistic gear icon (SVG) */
+      .hero-left .icon svg {
+        width: 40px;
+        height: 40px;
+        stroke: #e0e0e0;
+        fill: none;
+      }
+      .hero-left .title {
+        font-size: 0.875rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+      }
+      .hero-left h1 {
+        font-size: 2.5rem;
+        margin: 0.5rem 0;
+        line-height: 1.2;
+      }
+      .hero-left p {
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+      .hero-left .cta {
+        display: inline-block;
+        margin-top: 1.25rem;
+        padding: 0.75rem 1.5rem;
+        background: #ff5733;
+        color: #fff;
+        border-radius: 4px;
+        transition: background 0.3s ease;
+      }
+      .hero-left .cta:hover {
+        background: #e04e2a;
+      }
+      
+      /* Carousel (Hero Right) */
+      .hero-right {
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+      .carousel {
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+        overflow: hidden;
+      }
+      .carousel-track-container {
+        overflow: hidden;
+      }
+      .carousel-track {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+      }
+      .carousel-slide {
+        min-width: 100%;
+        margin-right: 8px;
+        position: relative;
+      }
+      .carousel-slide img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 16px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .carousel-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        border: none;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        z-index: 10;
+        border-radius: 50%;
+      }
+      .carousel-button--left {
+        left: 10px;
+      }
+      .carousel-button--right {
+        right: 10px;
+      }
+      
+      /* Additional Sections */
+      section {
+        padding: 3rem 0;
+      }
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      section h2 {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+      section p {
+        font-size: 1rem;
+        line-height: 1.6;
+        text-align: center;
+      }
+      
+      /* Teams, Partners Grid */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+      .card {
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        text-align: center;
+      }
+      
+      /* Contact Form */
+      form {
+        max-width: 500px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
         gap: 1rem;
       }
-  
-      .timeline .day .day-title {
-        font-size: 1.5rem;
+      form input,
+      form textarea {
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+        font-size: 1rem;
       }
-    }
-  
-    /* =============================================================================
-       ADDITIONAL LAYERED ELEMENTS (for overlapping content)
-    ============================================================================= */
-    .layer {
-      position: relative;
-      z-index: 5;
-    }
-  
-    .layer::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -10px;
-      top: -10px;
-      border: 1px solid rgba(255, 102, 0, 0.2);
-      pointer-events: none;
-    }
-  
-    /* =============================================================================
-       EXTRA STYLES & PLACEHOLDER CLASSES (for future expansion)
-    ============================================================================= */
-    .placeholder {
-      background: #333;
-      padding: 2rem;
-      border-radius: 8px;
-      margin: 2rem auto;
-      max-width: 600px;
-    }
-  
-    .shadow {
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    }
-  
-    /* =============================================================================
-       FURTHER ANIMATIONS & TRANSITIONS
-    ============================================================================= */
-    .fade {
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
-  
-    .fade.visible {
-      opacity: 1;
-    }
-  
-    .slide {
-      transform: translateX(-50px);
-      opacity: 0;
-      transition: transform 0.5s ease-out, opacity 0.5s ease-out;
-    }
-  
-    .slide.visible {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  </style>
-</head>
-<body>
-  <!-- ================================================================
-       NAVIGATION BAR
-  ================================================================= -->
-  <nav>
-    <ul>
-      <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#team">Team</a></li>
-      <li><a href="#days-focus">3 Days Focus</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-  
-  <!-- ================================================================
-       HERO SECTION WITH LAYERED CONTENT & GEOMETRIC DECOR
-  ================================================================= -->
-  <header class="hero">
-    <div class="overlay"></div>
-    <div class="content layer">
-      <h1>LEGACY, INNOVATION & SPEED</h1>
-      <p>
-        Celebrating the original Georgia Tech robot reimagined for rapid, breakthrough design in just 3 days.
-      </p>
-      <a href="#portfolio" class="cta-button">Explore Our Work</a>
-    </div>
-    <!-- Geometric icons -->
-    <svg class="geometric geo-plus" viewBox="0 0 100 100">
-      <polygon points="45,10 55,10 55,45 90,45 90,55 55,55 55,90 45,90 45,55 10,55 10,45 45,45" />
-    </svg>
-    <svg class="geometric geo-cross" viewBox="0 0 100 100">
-      <rect x="42" y="10" width="16" height="80" />
-      <rect x="10" y="42" width="80" height="16" />
-    </svg>
-  </header>
-  
-  <!-- ================================================================
-       PORTFOLIO / SHOWCASE SECTION
-  ================================================================= -->
-  <section id="portfolio" class="generic layer">
-    <h2>Our Portfolio</h2>
-    <p>
-      Witness our journey from concept to creation. Each project is the result of unwavering determination,
-      rapid prototyping, and innovative problem solving.
-    </p>
-  </section>
-  
-  <!-- ================================================================
-       ABOUT SECTION
-  ================================================================= -->
-  <section id="about" class="generic">
-    <h2>About Us</h2>
-    <p>
-      At Georgia Tech, we honor a storied handoff of technological heritage. Our team fuses modern design principles
-      with the legacy of our classic robot, pushing the boundaries of rapid innovation while preserving time‐honored excellence.
-    </p>
-  </section>
-  
-  <!-- ================================================================
-       SERVICES SECTION
-  ================================================================= -->
-  <section id="services" class="generic layer">
-    <h2>Our Services</h2>
-    <p>
-      We believe in designing with speed and precision. Our services range from conceptual design to rapid build cycles,
-      ensuring that every project is delivered with unmatched quality and edge.
-    </p>
-    <div class="placeholder shadow">
-      <p>
-        Service details and case studies coming soon.
-      </p>
-    </div>
-  </section>
-  
-  <!-- ================================================================
-       TEAM SECTION
-  ================================================================= -->
-  <section id="team" class="generic">
-    <h2>Meet the Team</h2>
-    <p>
-      A diverse group of engineers, designers, and innovators. United by our commitment to excellence, each member
-      is dedicated to transforming ideas into reality at lightning speed.
-    </p>
-    <div class="placeholder shadow">
-      <p>
-        Team bios and photos will be dynamically loaded here.
-      </p>
-    </div>
-  </section>
-  
-  <!-- ================================================================
-       ROBOT SECTION: THE CLASSIC MEETS THE FUTURE
-  ================================================================= -->
-  <section class="robot">
-    <h2>The Original Georgia Tech Robot</h2>
-    <div class="robot-container">
-      <!-- Inline SVG placeholder simulating the legacy robot asset -->
-      <svg viewBox="0 0 300 300">
-        <circle cx="150" cy="150" r="140" stroke="#ff6600" stroke-width="8" fill="none" />
-        <rect x="130" y="70" width="40" height="160" fill="#ff6600" />
-        <circle cx="150" cy="150" r="20" fill="#111" />
-      </svg>
-    </div>
-  </section>
-  
-  <!-- ================================================================
-       3 DAYS FOCUS SECTION: RAPID INNOVATION TIMELINE
-  ================================================================= -->
-  <section id="days-focus" class="days-focus">
-    <h2>3 Days Focus</h2>
-    <div class="timeline">
-      <div class="day slide">
-        <div class="day-title">Day 1: Ideation & Concept</div>
-        <div class="day-desc">
-          Intensive brainstorming and rapid prototyping fuel the inception of groundbreaking ideas.
+      form button {
+        padding: 0.75rem;
+        background: #ff5733;
+        border: none;
+        color: #fff;
+        font-size: 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      
+      /* Footer */
+      footer {
+        background: #333;
+        color: #fff;
+        padding: 1.5rem 0;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <header>
+      <div class="container">
+        <div class="logo">FRC Robotics</div>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#teams">Teams</a></li>
+            <li><a href="#partners">Partners</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <!-- Left Panel: Text Content with Gradient Overlay -->
+      <div class="hero-left">
+        <div class="overlay">
+          <div class="icon">
+            <!-- Minimalistic gear icon -->
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3" stroke-width="2"></circle>
+              <path
+                d="M19.4,15a1.65,1.65,0,0,0,.33,1.82l.06.06a2,2,0,0,1-2.83,2.83l-.06-.06a1.65,1.65,0,0,0-1.82-.33,1.65,1.65,0,0,0-1,1.51V21a2,2,0,0,1-4,0v-.09a1.65,1.65,0,0,0-1-1.51,1.65,1.65,0,0,0-1.82.33l-.06.06a2,2,0,0,1-2.83-2.83l.06-.06a1.65,1.65,0,0,0,.33-1.82,1.65,1.65,0,0,0-1.51-1H3a2,2,0,0,1,0-4h.09a1.65,1.65,0,0,0,1.51-1,1.65,1.65,0,0,0-.33-1.82L4.21,7.73a2,2,0,0,1,2.83-2.83l.06.06a1.65,1.65,0,0,0,1.82.33h.09a1.65,1.65,0,0,0,1-1.51V3a2,2,0,0,1,4,0v.09a1.65,1.65,0,0,0,1,1.51h.09a1.65,1.65,0,0,0,1.82-.33l.06-.06a2,2,0,0,1,2.83,2.83l-.06.06a1.65,1.65,0,0,0-.33,1.82v.09a1.65,1.65,0,0,0,1.51,1H21a2,2,0,0,1,0,4h-.09a1.65,1.65,0,0,0-1.51,1Z"
+                stroke-width="2"
+                fill="none"
+              ></path>
+            </svg>
+          </div>
+          <div class="title">Innovation & Excellence</div>
+          <h1>Empowering Tomorrow's Engineers</h1>
+          <p>
+            At FRC Robotics, we inspire and empower student engineers through
+            hands-on robotics competitions, mentorship, and cutting-edge
+            technology.
+          </p>
+          <a href="#about" class="cta">Learn More</a>
         </div>
       </div>
-      <div class="day slide">
-        <div class="day-title">Day 2: Design & Engineering</div>
-        <div class="day-desc">
-          Merging art with science as our team refines concepts into functional designs with precision.
+
+      <!-- Right Panel: Horizontal Image Carousel -->
+      <div class="hero-right">
+        <div class="carousel">
+          <div class="carousel-track-container">
+            <ul class="carousel-track">
+              <li class="carousel-slide current-slide">
+                <img
+                  src="https://source.unsplash.com/featured/400x1200/?robotics"
+                  alt="FRC Robot in action"
+                />
+              </li>
+              <li class="carousel-slide">
+                <img
+                  src="https://source.unsplash.com/featured/400x1200/?engineering"
+                  alt="Team strategy session"
+                />
+              </li>
+              <li class="carousel-slide">
+                <img
+                  src="https://source.unsplash.com/featured/400x1200/?technology"
+                  alt="Innovation highlight"
+                />
+              </li>
+            </ul>
+          </div>
+          <button class="carousel-button carousel-button--left">&lt;</button>
+          <button class="carousel-button carousel-button--right">&gt;</button>
         </div>
       </div>
-      <div class="day slide">
-        <div class="day-title">Day 3: Build & Validate</div>
-        <div class="day-desc">
-          The final sprint: constructing the robot with speed and verifying every detail under real-world conditions.
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+      <div class="container">
+        <h2>About Our Organization</h2>
+        <p>
+          Founded on the principle of inspiring innovation, our organization
+          supports hundreds of students across the nation. We provide guidance,
+          technical expertise, and resources to help teams build competitive
+          robots and create lasting impacts in their communities.
+        </p>
+      </div>
+    </section>
+
+    <!-- Teams Section -->
+    <section id="teams">
+      <div class="container">
+        <h2>Our Teams</h2>
+        <p>
+          Discover our diverse roster of teams competing at regional, national,
+          and international events. Each team is a powerhouse of creativity,
+          engineering, and teamwork.
+        </p>
+        <div class="grid">
+          <div class="card">
+            <h3>Team 101</h3>
+            <p>Innovative design and exceptional performance.</p>
+          </div>
+          <div class="card">
+            <h3>Team 202</h3>
+            <p>Committed to excellence in robotics engineering.</p>
+          </div>
+          <div class="card">
+            <h3>Team 303</h3>
+            <p>Pushing the boundaries of technology and creativity.</p>
+          </div>
+          <div class="card">
+            <h3>Team 404</h3>
+            <p>Driven by passion, united by excellence.</p>
+          </div>
         </div>
       </div>
-    </div>
-    <a href="#contact" class="cta-button">Join the Innovation</a>
-  </section>
-  
-  <!-- ================================================================
-       CONTACT SECTION
-  ================================================================= -->
-  <section id="contact" class="generic">
-    <h2>Contact Us</h2>
-    <p>
-      Ready to learn more or partner with us? Reach out via email at
-      <a href="mailto:contact@gtrobot3days.com">contact@gtrobot3days.com</a> or connect on our social channels.
-    </p>
-  </section>
-  
-  <!-- ================================================================
-       FOOTER
-  ================================================================= -->
-  <footer>
-    <p>&copy; 2025 Georgia Tech | FRC Robot in 3 Days • All Rights Reserved</p>
-  </footer>
-  
-  <!-- =============================================================================
-       JAVASCRIPT: SMOOTH SCROLL & ELEMENT REVEALS
-  ============================================================================= -->
-  <script>
-    // Smooth scroll for nav links
-    document.querySelectorAll("nav a").forEach(anchor => {
-      anchor.addEventListener("click", function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute("href")).scrollIntoView({
-          behavior: "smooth"
-        });
-      });
-    });
-  
-    // Intersection Observer for reveal animations
-    const observerOptions = { threshold: 0.2 };
-    const revealElements = document.querySelectorAll(".slide, header.hero h1, header.hero p");
-  
-    const revealOnScroll = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners">
+      <div class="container">
+        <h2>Our Partners & Sponsors</h2>
+        <p>
+          We are proud to collaborate with leading companies, educational
+          institutions, and community organizations that share our vision for a
+          better future through robotics.
+        </p>
+        <div class="grid">
+          <div class="card">
+            <h3>Partner A</h3>
+          </div>
+          <div class="card">
+            <h3>Partner B</h3>
+          </div>
+          <div class="card">
+            <h3>Partner C</h3>
+          </div>
+          <div class="card">
+            <h3>Partner D</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <div class="container">
+        <h2>Contact Us</h2>
+        <p>
+          Have a question about our programs or looking to partner with us? Get
+          in touch.
+        </p>
+        <form action="#" method="post">
+          <input type="text" name="name" placeholder="Your Name" required />
+          <input type="email" name="email" placeholder="Your Email" required />
+          <textarea
+            name="message"
+            rows="5"
+            placeholder="Your Message"
+            required
+          ></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 FRC Robotics. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- JavaScript for Carousel Functionality -->
+    <script>
+      const track = document.querySelector(".carousel-track");
+      const slides = Array.from(track.children);
+      const nextButton = document.querySelector(".carousel-button--right");
+      const prevButton = document.querySelector(".carousel-button--left");
+
+      // Set positions for each slide
+      const setSlidePosition = (slide, index) =>
+        (slide.style.left = slide.getBoundingClientRect().width * index + "px");
+      slides.forEach(setSlidePosition);
+
+      const moveToSlide = (track, currentSlide, targetSlide) => {
+        track.style.transform = "translateX(-" + targetSlide.style.left + ")";
+        currentSlide.classList.remove("current-slide");
+        targetSlide.classList.add("current-slide");
+      };
+
+      // When clicking left, move to previous slide
+      prevButton.addEventListener("click", () => {
+        const currentSlide = track.querySelector(".current-slide");
+        let prevSlide = currentSlide.previousElementSibling;
+        if (!prevSlide) {
+          prevSlide = slides[slides.length - 1];
         }
+        moveToSlide(track, currentSlide, prevSlide);
       });
-    }, observerOptions);
-  
-    revealElements.forEach(el => {
-      revealOnScroll.observe(el);
-    });
-  </script>
-  
-  <!-- =============================================================================
-       FILLER LINES
-       To meet the requirement of a file containing over 1,000 lines, the following
-       block of filler comment lines is appended. In your production file, ensure that
-       each of the lines below is present. (This example shows the first few and the last few.)
-  ============================================================================= -->
-  
-  <!-- BEGIN FILLER LINES -->
-  <!-- FILLER LINE 001: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!-- FILLER LINE 002: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!-- FILLER LINE 003: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!-- FILLER LINE 004: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!-- FILLER LINE 005: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!-- FILLER LINE 006: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!-- FILLER LINE 007: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!-- FILLER LINE 008: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!-- FILLER LINE 009: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!-- FILLER LINE 010: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!--
-       ... (Assume filler lines 011 through 1090 are present here, each on its own line,
-            repeating the format "FILLER LINE xxx: This is a filler line to ensure the file exceeds 1000 lines.")
-  -->
-  <!-- FILLER LINE 1091: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!-- FILLER LINE 1092: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!-- FILLER LINE 1093: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!-- FILLER LINE 1094: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!-- FILLER LINE 1095: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!-- FILLER LINE 1096: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!-- FILLER LINE 1097: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!-- FILLER LINE 1098: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!-- FILLER LINE 1099: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!-- FILLER LINE 1100: This is a filler line to ensure the file exceeds 1000 lines. -->
-  <!-- END FILLER LINES -->
-  
-  <!-- =============================================================================
-       END OF FILE (Over 1,000 lines confirmed)
-  ============================================================================= -->
-</body>
+
+      // When clicking right, move to next slide
+      nextButton.addEventListener("click", () => {
+        const currentSlide = track.querySelector(".current-slide");
+        let nextSlide = currentSlide.nextElementSibling;
+        if (!nextSlide) {
+          nextSlide = slides[0];
+        }
+        moveToSlide(track, currentSlide, nextSlide);
+      });
+
+      // Optional Auto Slide (every 5 seconds)
+      setInterval(() => {
+        const currentSlide = track.querySelector(".current-slide");
+        let nextSlide = currentSlide.nextElementSibling;
+        if (!nextSlide) {
+          nextSlide = slides[0];
+        }
+        moveToSlide(track, currentSlide, nextSlide);
+      }, 5000);
+    </script>
+  </body>
 </html>
