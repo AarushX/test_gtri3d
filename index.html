@@ -1,484 +1,377 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="theme-color" content="#d62828"/>
-  <title>Georgia Tech Ri3D</title>
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Georgia Tech Robot in 3 Days</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for social icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
-    /* CSS Variables & Themes */
     :root {
-      --clr-bg: #f4f4f4;
-      --clr-surface: #ffffff;
-      --clr-text: #333333;
-      --clr-muted: #555555;
-      --clr-primary: #d62828;
-      --clr-primary-hover: #a11a1a;
-      --transition: 0.3s ease;
-      --radius: 8px;
+      --gt-gold: #B3A369;
+      --gt-navy: #003057;
+      --white: #fff;
+      --gray-bg: #f8f9fa;
+      --transition: 0.5s cubic-bezier(0.4,0,0.2,1);
     }
-    [data-theme="dark"] {
-      --clr-bg: #121212;
-      --clr-surface: #1e1e1e;
-      --clr-text: #e0e0e0;
-      --clr-muted: #aaaaaa;
-      --clr-primary: #ff4b4b;
-      --clr-primary-hover: #e03b3b;
+    * {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
     }
-
-    /* Reset & Base */
-    * { box-sizing: border-box; margin:0; padding:0; }
-    html { scroll-behavior: smooth; font-size: 16px; }
     body {
-      background: var(--clr-bg);
-      color: var(--clr-text);
-      font-family: 'Inter', sans-serif;
+      font-family: 'Montserrat', Georgia, serif;
+      background: var(--gray-bg);
+      color: var(--gt-navy);
       line-height: 1.6;
     }
-    img { max-width:100%; display:block; border-radius: var(--radius); }
-    a { color: inherit; text-decoration: none; }
-
-    /* Scroll‑spy active link */
-    nav ul li a.active { color: var(--clr-primary); }
-
-    /* Header / Hero */
     header {
-      position: relative;
-      height: 100vh;
-      background: url('convention_1.jpg') center/cover no-repeat;
-    }
-    header::before {
-      content:""; position:absolute; inset:0;
-      background: rgba(0,0,0,0.5);
-    }
-    .hero-content {
-      position: relative; z-index:1;
-      height:100%; display:flex;
-      flex-direction:column;
-      justify-content:center; align-items:center;
-      text-align:center; padding:0 1rem;
-      color: #fff;
-    }
-    .hero-content h1 {
-      font-size: clamp(2.5rem,5vw,4rem);
-      margin-bottom:1rem;
-      font-weight:700;
-    }
-    .hero-content p {
-      font-size: clamp(1rem,2.5vw,1.25rem);
-      margin-bottom:2rem;
-      max-width:600px;
-    }
-    .btn {
-      background: var(--clr-primary);
-      color:#fff;
-      padding:0.75rem 1.5rem;
-      border:none; border-radius:var(--radius);
-      cursor:pointer;
-      font-weight:600;
+      background: var(--gt-navy);
+      color: var(--white);
+      padding: 2rem 0 1.5rem 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
       transition: background var(--transition);
     }
-    .btn:hover { background: var(--clr-primary-hover); }
-    .scroll-down {
-      position:absolute; bottom:20px; left:50%;
-      transform:translateX(-50%);
-      font-size:2rem; color:#fff;
-      cursor:pointer;
-      animation: bounce 2s infinite;
+    header h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 0.25rem;
     }
-    @keyframes bounce {
-      0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}
+    header p {
+      color: var(--gt-gold);
+      font-size: 1.2rem;
+      font-weight: 400;
+      letter-spacing: 1px;
     }
-
-    /* Navigation */
+    .social-links {
+      margin: 1.2rem 0 0.5rem 0;
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+    }
+    .social-links a {
+      color: var(--gt-gold);
+      font-size: 2rem;
+      transition: color 0.2s;
+      display: inline-block;
+    }
+    .social-links a:hover {
+      color: var(--white);
+    }
     nav {
-      position:fixed; top:0; left:0; width:100%;
-      background: var(--clr-surface);
-      box-shadow:0 2px 5px rgba(0,0,0,0.1);
-      z-index:1000;
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
     }
-    .container {
-      max-width:1200px; margin:0 auto; padding:0 1rem;
-      display:flex; align-items:center; justify-content:space-between;
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 0.8rem;
+      border-radius: 6px;
+      transition: background var(--transition), color var(--transition);
     }
-    .logo { font-weight:700; color: var(--clr-primary); font-size:1.25rem; padding:1rem 0; }
-    nav ul {
-      list-style:none; display:flex; gap:1rem;
-    }
-    nav ul li a {
-      display:block; padding:1rem 0.5rem;
-      font-weight:500; transition: color var(--transition);
+    nav a:hover, nav a.active {
+      background: var(--gt-gold);
+      color: var(--gt-navy);
     }
 
-    /* Hamburger */
-    #nav-toggle { display:none; }
-    .hamburger {
-      display:none; cursor:pointer; flex-direction:column; gap:4px;
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(120deg, var(--gt-navy) 60%, var(--gt-gold) 100%);
+      color: var(--white);
+      min-height: 60vh;
+      padding: 3rem 1rem 2rem 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-    .hamburger div {
-      width:25px; height:3px; background: var(--clr-text);
-      transition: transform var(--transition), opacity var(--transition);
+    .hero img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 2rem;
+      margin-top: 2rem;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInUp 1.2s 0.6s forwards;
     }
-    /* Toggle animation */
-    #nav-toggle:checked + .hamburger .line1 { transform: rotate(45deg) translate(5px,5px);}
-    #nav-toggle:checked + .hamburger .line2 { opacity:0;}
-    #nav-toggle:checked + .hamburger .line3 { transform: rotate(-45deg) translate(5px,-5px); }
-    @media(max-width: 768px){
-      .hamburger { display:flex; }
-      nav ul {
-        position:fixed; top:64px; left:0; right:0;
-        background: var(--clr-surface);
-        flex-direction:column; text-align:center;
-        max-height:0; overflow:hidden;
-        transition: max-height var(--transition);
+    .hero h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInUp 1s 0.2s forwards;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--gt-gold);
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInUp 1s 0.4s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
-      #nav-toggle:checked ~ nav ul { max-height:300px; }
     }
 
-    /* Sections */
     section {
-      padding:4rem 1rem; opacity:0; transform:translateY(30px);
-      transition:opacity 0.8s ease-out, transform 0.8s ease-out;
-      scroll-margin-top:80px;
+      max-width: 1100px;
+      margin: 3rem auto;
+      background: var(--white);
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.06);
+      padding: 2.5rem 2rem;
+      transition: box-shadow var(--transition);
     }
-    section.visible { opacity:1; transform:translateY(0); }
-    .section-title {
-      text-align:center; margin-bottom:2rem;
-      font-size:2rem; color: var(--clr-primary);
+    section:not(:last-child) {
+      margin-bottom: 2rem;
+    }
+    section h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gt-navy);
+      margin-bottom: 1.3rem;
+      letter-spacing: 1px;
+    }
+    .about-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+    }
+    .about-content img {
+      max-width: 340px;
+      width: 100%;
+      border-radius: 1.2rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .about-content img:hover {
+      transform: scale(1.04) rotate(-2deg);
+    }
+    .about-content div {
+      flex: 1 1 320px;
+      min-width: 220px;
+    }
+    .leadership-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+    .leader-card {
+      background: var(--gray-bg);
+      border-radius: 1rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+      padding: 1.5rem 1rem;
+      width: 250px;
+      text-align: center;
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), box-shadow 0.4s;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInUp 1s forwards;
+    }
+    .leader-card:nth-child(1) { animation-delay: 0.1s; }
+    .leader-card:nth-child(2) { animation-delay: 0.2s; }
+    .leader-card:nth-child(3) { animation-delay: 0.3s; }
+    .leader-card:nth-child(4) { animation-delay: 0.4s; }
+    .leader-card h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+      color: var(--gt-navy);
+    }
+    .leader-card p {
+      font-size: 0.98rem;
+      color: #555;
+    }
+    .sponsors-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0 0 0;
+      background: var(--white);
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .sponsors-table th, .sponsors-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #ececec;
+    }
+    .sponsors-table th {
+      background: var(--gt-gold);
+      color: var(--gt-navy);
+      font-weight: 700;
+    }
+    .sponsors-table tr:last-child td {
+      border-bottom: none;
+    }
+    .sponsor-img {
+      width: 100%;
+      max-width: 400px;
+      display: block;
+      margin: 2rem auto 0 auto;
+      border-radius: 1rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
     }
 
-    /* About */
-    .about-container {
-      display:flex; gap:2rem; flex-wrap:wrap;
-    }
-    .about-text, .about-image { flex:1; min-width:280px; }
-
-    /* Timeline */
-    .timeline {
-      display:flex; flex-direction:column; gap:1.5rem;
-    }
-    .timeline-item {
-      display:flex; flex-direction:column; align-items:center;
-      text-align:center; max-width:800px; margin:auto;
-    }
-    .timeline-item .icon {
-      background:var(--clr-primary); color:#fff;
-      width:50px; height:50px; border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      font-size:1.5rem; margin-bottom:1rem;
-    }
-    .timeline-item p { padding:0 1rem; }
-
-    /* Cards */
-    .process-cards, .innovation-grid, .news-grid, .mentor-grid {
-      display:grid; gap:2rem;
-    }
-    .process-cards { grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); }
-    .innovation-grid { grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); }
-    .news-grid { grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); }
-    .mentor-grid { grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); }
-
-    .card, .innovation-card, .news-card, .mentor-card {
-      background: var(--clr-surface); border-radius:var(--radius);
-      box-shadow:0 2px 5px rgba(0,0,0,0.1);
-      transition: transform var(--transition), box-shadow var(--transition);
-      overflow:hidden;
-    }
-    .card:hover, .innovation-card:hover, .news-card:hover, .mentor-card:hover {
-      transform: translateY(-5px);
-      box-shadow:0 4px 10px rgba(0,0,0,0.15);
-    }
-    .card h3, .innovation-card h3, .news-card h3, .mentor-card h3 {
-      margin:1rem;
-      color: var(--clr-primary);
-    }
-    .card p, .innovation-card p, .news-card p, .mentor-card p {
-      margin:0 1rem 1rem;
-      color: var(--clr-muted);
-    }
-
-    .news-card img, .mentor-card img { width:100%; }
-
-    /* Sponsors */
-    .sponsors-display {
-      text-align:center;
-    }
-    .sponsors-display img {
-      max-width: 800px; margin:auto; box-shadow:0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    /* Watch */
-    .watch-section {
-      display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;
-    }
-    .watch-section a {
-      background: var(--clr-surface); padding:1rem; border-radius:50%;
-      width:80px; height:80px; display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      box-shadow:0 2px 5px rgba(0,0,0,0.1);
-      transition:transform var(--transition);
-    }
-    .watch-section a:hover { transform:scale(1.1); }
-    .watch-section img { width:40px; height:40px; }
-
-    /* Contact */
-    .contact-form {
-      max-width:500px; margin:auto;
-    }
-    .contact-form label {
-      display:block; margin-bottom:0.5rem; font-weight:500;
-    }
-    .contact-form input, .contact-form textarea {
-      width:100%; padding:0.75rem; margin-bottom:1rem;
-      border:1px solid #ddd; border-radius:4px;
-      background: var(--clr-bg); color: var(--clr-text);
-    }
-    .contact-form button {
-      background: var(--clr-primary); color:#fff;
-      padding:0.75rem; width:100%; border:none;
-      border-radius:4px; cursor:pointer;
-      transition: background var(--transition);
-    }
-    .contact-form button:hover { background: var(--clr-primary-hover); }
-
-    /* Footer */
     footer {
-      background:var(--clr-surface); color: var(--clr-muted);
-      text-align:center; padding:2rem 1rem;
+      margin-top: 3rem;
+      background: var(--gt-navy);
+      color: var(--white);
+      text-align: center;
+      padding: 1.5rem 0 1rem 0;
+      border-radius: 1.2rem 1.2rem 0 0;
+      font-size: 1rem;
+      letter-spacing: 1px;
     }
-    footer a:hover { color: var(--clr-primary); }
 
-    /* Back to Top */
-    #back-to-top {
-      position:fixed; bottom:30px; right:30px; display:none;
-      background: var(--clr-primary); color:white;
-      padding:0.75rem; border:none; border-radius:50%;
-      cursor:pointer; font-size:1.25rem; z-index:1000;
-      box-shadow:0 2px 5px rgba(0,0,0,0.2);
-      transition:transform var(--transition);
+    /* Responsive */
+    @media (max-width: 900px) {
+      .about-content {
+        flex-direction: column;
+      }
+      section {
+        padding: 2rem 1rem;
+      }
     }
-    #back-to-top:hover { transform:scale(1.1); }
+    @media (max-width: 600px) {
+      .hero h2 { font-size: 1.4rem; }
+      header h1 { font-size: 1.4rem; }
+      section h3 { font-size: 1.2rem; }
+      .leader-card { width: 100%; }
+      .about-content img { max-width: 100%; }
+      .sponsor-img { max-width: 100%; }
+    }
   </style>
 </head>
 <body>
-
-  <!-- NAV & THEME TOGGLE -->
-  <div class="container">
-    <div class="logo">GT Ri3D</div>
-    <input type="checkbox" id="nav-toggle"/>
-    <label for="nav-toggle" class="hamburger">
-      <div class="line1"></div><div class="line2"></div><div class="line3"></div>
-    </label>
-    <nav>
-      <ul>
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#challenge">72‑Hour</a></li>
-        <li><a href="#process">Process</a></li>
-        <li><a href="#innovation">Innovation</a></li>
-        <li><a href="#community">Community</a></li>
-        <li><a href="#sponsors">Sponsors</a></li>
-        <li><a href="#ftc">FTC</a></li>
-        <li><a href="#frc">FRC</a></li>
-        <li><a href="#news">News</a></li>
-        <li><a href="#watch">Watch</a></li>
-        <li><a href="#contact">Join</a></li>
-        <li>
-          <button id="theme-toggle" class="btn" style="padding:0.5rem;color:var(--clr-text);background:transparent;border:1px solid var(--clr-text);font-size:0.9rem;">
-            🌙
-          </button>
-        </li>
-      </ul>
-    </nav>
-  </div>
-
-  <!-- HERO -->
-  <header id="hero">
-    <div class="hero-content">
-      <h1>Innovation in 3 Days</h1>
-      <p>Forging the Future of Robotics at Georgia Tech Ri3D</p>
-      <button class="btn" onclick="scrollToSection('about')">Join the Movement</button>
+  <header>
+    <h1>Georgia Tech Robot in 3 Days</h1>
+    <p>Inspiring Innovation. Building the Future. <span style="color: #fff;">#FRC #Ri3D</span></p>
+    <div class="social-links">
+      <a href="https://www.instagram.com/gtri3d" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.youtube.com/@GTRi3D" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.twitch.tv/gtri3d" target="_blank" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
     </div>
-    <div class="scroll-down" onclick="scrollToSection('about')">&#8595;</div>
+    <nav>
+      <a href="#about" class="active">About</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#sponsors">Sponsors</a>
+    </nav>
   </header>
 
-  <!-- ABOUT -->
+  <section class="hero">
+    <h2>Welcome to Georgia Tech's Robot in 3 Days</h2>
+    <p>
+      In our inaugural year, Georgia Tech's Ri3D team came together for the first time to take on the FIRST Robotics Competition challenge. We built a complete robot within 72 hours, documented every step, and shared our journey to help and inspire the FRC community.
+    </p>
+    <img src="convention_1.jpg" alt="Georgia Tech Ri3D Convention">
+  </section>
+
   <section id="about">
-    <h2 class="section-title">About Us</h2>
-    <div class="about-container">
-      <div class="about-text">
-        <p>At Georgia Tech Ri3D, our mission is to inspire ingenuity and create breakthrough robotics solutions through rapid prototyping and collaborative effort. We are a collegiate team dedicated to pushing the boundaries of robotics in just 72 hours—combining academic excellence, technical prowess, and a relentless drive for innovation.</p>
-        <p>Our culture is defined by our passion for technology, continuous innovation, and a deep-rooted commitment to community engagement. We believe every challenge is an opportunity to learn, adapt, and push our creative limits.</p>
-      </div>
-      <div class="about-image">
-        <img src="convention_2.png" alt="Team at Convention" loading="lazy"/>
-      </div>
-    </div>
-  </section>
-
-  <!-- 72‑Hour CHALLENGE -->
-  <section id="challenge">
-    <h2 class="section-title">The 72‑Hour Challenge</h2>
-    <div class="timeline">
-      <div class="timeline-item"><div class="icon">🧠</div><p>Rapid ideation & brainstorming to refine every concept.</p></div>
-      <div class="timeline-item"><div class="icon">🛠</div><p>Design & prototyping in parallel with CAD, 3D printing & CNC.</p></div>
-      <div class="timeline-item"><div class="icon">🏭</div><p>Procurement & fabrication of high‑precision components.</p></div>
-      <div class="timeline-item"><div class="icon">⚙️</div><p>Seamless assembly of mechanical, electronic & control systems.</p></div>
-      <div class="timeline-item"><div class="icon">🚀</div><p>Final testing, tuning & competition‑grade adjustments.</p></div>
-    </div>
-  </section>
-
-  <!-- PROCESS -->
-  <section id="process">
-    <h2 class="section-title">Prototyping & Manufacturing</h2>
-    <div class="process-cards">
-      <div class="card"><h3>Concept & CAD</h3><p>Collaborative digital blueprints with advanced 3D modelling.</p></div>
-      <div class="card"><h3>Material Sourcing</h3><p>High‑quality parts delivered via optimized logistics.</p></div>
-      <div class="card"><h3>Rapid Proto</h3><p>Continuous iteration on 3D printers, lasers & CNC mills.</p></div>
-      <div class="card"><h3>Integration</h3><p>Mechanical & electronic assemblies merged with precision.</p></div>
-      <div class="card"><h3>Test & Tune</h3><p>Rigorous trials ensure competition‑ready performance.</p></div>
-    </div>
-  </section>
-
-  <!-- INNOVATION -->
-  <section id="innovation">
-    <h2 class="section-title">Innovation at the Forefront</h2>
-    <div class="innovation-grid">
-      <div class="innovation-card"><img src="presenter_1.jpg" alt="Advanced Materials" loading="lazy"/><h3>Advanced Materials</h3><p>Lightweight composites & 3D‑printed parts.</p></div>
-      <div class="innovation-card"><img src="presenter_2.jpg" alt="AI Control" loading="lazy"/><h3>Intelligent Control</h3><p>AI & sensor fusion for real‑time adaptation.</p></div>
-      <div class="innovation-card"><img src="table_sponsors_display.jpg" alt="Sustainability" loading="lazy"/><h3>Sustainable Practices</h3><p>Energy‑efficient techniques & ethical sourcing.</p></div>
-    </div>
-  </section>
-
-  <!-- COMMUNITY & MENTORS -->
-  <section id="community">
-    <h2 class="section-title">Community & Mentorship</h2>
-    <div class="about-container">
-      <div class="about-text">
-        <p>Through STEM workshops, open‑lab days, and mentorship, we engage the next generation of engineers.</p>
-      </div>
-      <div class="about-image">
-        <img src="convention_1.jpg" alt="Community Engagement" loading="lazy"/>
+    <h3>About GT Robot in 3 Days</h3>
+    <div class="about-content">
+      <img src="convention_2.jpg" alt="GT Ri3D at Convention">
+      <div>
+        <p>
+          Georgia Tech's Ri3D team brings together students, alumni, and robotics enthusiasts to tackle the FIRST Robotics Competition challenge head-on, right after the annual game reveal.
+        </p>
+        <ul style="margin:1.2rem 0 0 1rem;">
+          <li>Rapid prototyping and full robot build in just three days</li>
+          <li>Open sharing of CAD, code, and build strategies</li>
+          <li>Focus on accessibility and inspiration for all FRC teams</li>
+          <li>Live streams, Q&amp;A, and educational content throughout the build</li>
+        </ul>
       </div>
     </div>
-    <h3 style="text-align:center; margin:2rem 0 1rem; color:var(--clr-primary);">Meet Our Mentors</h3>
-    <div class="mentor-grid">
-      <div class="mentor-card"><img src="presenter_1.jpg" alt="Dr. Jane Smith" loading="lazy"/><h3>Dr. Jane Smith</h3><p>AI & Control Systems Lead</p></div>
-      <div class="mentor-card"><img src="presenter_2.jpg" alt="Prof. John Doe" loading="lazy"/><h3>Prof. John Doe</h3><p>Mechanical Design Expert</p></div>
+  </section>
+
+  <section id="leadership">
+    <h3>Leadership Team</h3>
+    <div class="leadership-list">
+      <div class="leader-card">
+        <h4>Aarush P.</h4>
+        <p>Team Lead</p>
+      </div>
+      <div class="leader-card">
+        <h4>Henry S.</h4>
+        <p>Mechanical Lead</p>
+      </div>
+      <div class="leader-card">
+        <h4>Deep P.</h4>
+        <p>Programming Lead</p>
+      </div>
+      <div class="leader-card">
+        <h4>David N.</h4>
+        <p>Electrical Lead</p>
+      </div>
     </div>
   </section>
 
-  <!-- SPONSORS -->
   <section id="sponsors">
-    <h2 class="section-title">Our Sponsors</h2>
-    <div class="sponsors-display">
-      <img src="table_sponsors_display.jpg" alt="Table of Sponsors" loading="lazy"/>
-    </div>
-    <p style="text-align:center; margin-top:1rem; color:var(--clr-muted);">
-      Interested in partnering? <a href="#contact">Contact us</a> to become a sponsor.
-    </p>
+    <h3>Thank You to Our Sponsors</h3>
+    <img src="table_sponsors_display.jpg" alt="Sponsors Table" class="sponsor-img">
+    <table class="sponsors-table">
+      <thead>
+        <tr>
+          <th>Sponsor</th>
+          <th>Contribution</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>GT School of Electrical and Computer Engineering</td>
+          <td>Facilities and funding</td>
+        </tr>
+        <tr>
+          <td>FIRST Robotics</td>
+          <td>Game support, community outreach</td>
+        </tr>
+        <tr>
+          <td>Industry Partners</td>
+          <td>Parts and materials</td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
-  <!-- FTC & FRC -->
-  <section id="ftc"><h2 class="section-title">FTC Ri3D</h2><p style="text-align:center;">Our FIRST Tech Challenge program empowers high‑schoolers through hands‑on build & mentorship.</p></section>
-  <section id="frc"><h2 class="section-title">FRC Ri3D</h2><p style="text-align:center;">Our flagship FIRST Robotics Competition team builds a full‑scale robot in just 72 hours.</p></section>
-
-  <!-- NEWS -->
-  <section id="news">
-    <h2 class="section-title">News & Events</h2>
-    <div class="news-grid">
-      <div class="news-card"><img src="convention_1.jpg" alt="Convention Recap" loading="lazy"/><h3>Convention Highlights</h3><p>Recap of our showcase at the robotics convention.</p></div>
-      <div class="news-card"><img src="convention_2.png" alt="Upcoming Event" loading="lazy"/><h3>Upcoming Workshop</h3><p>Join us for hands‑on labs next month.</p></div>
-      <div class="news-card"><img src="presenter_1.jpg" alt="Behind the Scenes" loading="lazy"/><h3>Behind the Scenes</h3><p>A look into our lab workflows & interviews.</p></div>
-    </div>
-  </section>
-
-  <!-- WATCH -->
-  <section id="watch">
-    <h2 class="section-title">Watch Us</h2>
-    <div class="watch-section">
-      <a href="https://instagram.com/gtri3d" target="_blank"><img src="https://via.placeholder.com/40?text=IG" alt="IG"/><span>Instagram</span></a>
-      <a href="https://www.youtube.com/@GTRi3D" target="_blank"><img src="https://via.placeholder.com/40?text=YT" alt="YT"/><span>YouTube</span></a>
-      <a href="https://www.twitch.tv/gtri3d" target="_blank"><img src="https://via.placeholder.com/40?text=TW" alt="TW"/><span>Twitch</span></a>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <h2 class="section-title">Join the Movement</h2>
-    <p style="text-align:center; color:var(--clr-muted);">
-      Be part of cutting‑edge robotics. Team up, volunteer, or sponsor us—let’s innovate together!
-    </p>
-    <div class="contact-form">
-      <form action="https://formspree.io/f/your‑form‑id" method="POST">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required />
-        <label for="email">Email</label>
-        <input type="email" id="email" name="_replyto" required />
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" required></textarea>
-        <button type="submit" class="btn">Send Message</button>
-      </form>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
   <footer>
-    <p>© 2025 Georgia Tech Ri3D. All rights reserved. <a href="https://gtri3d.org" target="_blank">gtri3d.org</a></p>
-    <p>Contact: <a href="mailto:aarush.pande@gtri3d.org">aarush.pande@gtri3d.org</a></p>
-    <p><a href="#hero">Back to Top ↑</a></p>
+    &copy; 2025 Georgia Tech Robot in 3 Days. All Rights Reserved.
   </footer>
 
-  <!-- Back to Top Button -->
-  <button id="back-to-top" title="Back to top">↑</button>
-
   <script>
-    // Smooth scroll via button
-    function scrollToSection(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'});}
-
-    // Reveal on scroll
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target);}
-      });
-    },{threshold:0.2});
-    document.querySelectorAll('section').forEach(sec => observer.observe(sec));
-
-    // Scroll‑spy nav highlighting
-    const navLinks = document.querySelectorAll('nav ul li a[href^="#"]');
-    window.addEventListener('scroll',()=>{
-      let fromTop = window.scrollY + 90;
-      navLinks.forEach(link=>{
-        let section = document.querySelector(link.hash);
-        if(section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop){
-          navLinks.forEach(l=>l.classList.remove('active'));
-          link.classList.add('active');
+    // Smooth scroll for nav
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        document.querySelectorAll('nav a').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        const href = this.getAttribute('href');
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
         }
       });
     });
-
-    // Dark/Light Mode Toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click',()=>{
-      const html = document.documentElement;
-      const current = html.getAttribute('data-theme');
-      const next = current==='light'?'dark':'light';
-      html.setAttribute('data-theme', next);
-      themeToggle.textContent = next==='light'?'🌙':'☀️';
-      localStorage.setItem('theme', next);
-    });
-    // Persist theme
-    const saved = localStorage.getItem('theme');
-    if(saved) document.documentElement.setAttribute('data-theme', saved);
-
-    // Back to Top
-    const btn = document.getElementById('back-to-top');
-    window.addEventListener('scroll',()=> {
-      btn.style.display = window.scrollY > 500 ? 'block' : 'none';
-    });
-    btn.addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'}));
   </script>
 </body>
 </html>
